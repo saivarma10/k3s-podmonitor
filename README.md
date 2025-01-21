@@ -12,8 +12,8 @@
 ## Project Structure
 ```
 newfinal/
-├── metrics_test2.py      # Flask web application
-├── new.sh                # Bash script for collecting metrics
+├── plotPodMetrics.py      # Flask web application
+├── podMonitor.sh                # Bash script for collecting metrics
 ├── requirements.txt      # Python dependencies
 ├── templates/            # HTML templates for Flask app
 ```
@@ -34,14 +34,14 @@ pip3 install -r requirements.txt
 ### 2. Run the Monitoring Script
 To start monitoring pods, execute the script with pod names as arguments:
 ```bash
-bash new.sh pod1 pod2 pod3
+bash podMonitor.sh pod1 pod2 pod3
 ```
 The script will collect CPU and memory usage data every 5 seconds and store them in JSON files named `<pod_name>_metrics.json`.
 
 ### 3. Run the Flask Application
 Start the Flask web server to access collected metrics:
 ```bash
-python3 metrics_test2.py --ip 0.0.0.0 --port 5486
+python3 plotPodMetrics.py --ip 0.0.0.0 --port 5486
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ python3 metrics_test2.py --ip 0.0.0.0 --port 5486
 ### Monitoring Kubernetes Pods
 Run the monitoring script with the desired pod names to continuously log metrics:
 ```bash
-bash new.sh my-pod-1 my-pod-2
+bash podMonitor.sh my-pod-1 my-pod-2
 ```
 
 ### Accessing Metrics
