@@ -87,3 +87,6 @@ The Flask app provides the following endpoints:
 
 ## Contributing
 Feel free to submit issues and pull requests to improve the project.
+
+![image](https://github.com/user-attachments/assets/79a3f1d7-79e9-4ead-a05e-519047789e4e)
+
