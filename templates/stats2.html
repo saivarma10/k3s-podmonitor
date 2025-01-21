@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Metrics Stats</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            color: #337ab7;
+        }
+
+        .chart {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .avg-stats {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Metrics Stats</h1>
+
+    {% for file_stats in file_stats_list %}
+    <div class="chart" id="chart-{{ loop.index }}">
+        <h2>{{ file_stats.file }} Metrics</h2>
+
+        <div id="avg-stats-{{ loop.index }}" class="avg-stats">
+            <h3>Average Statistics for {{ file_stats.file }}</h3>
+            <p><strong>Minimum CPU:</strong> {{ file_stats.min_cpu }}</p>
+            <p><strong>Maximum CPU:</strong> {{ file_stats.max_cpu }}</p>
+            <p><strong>Average CPU:</strong> {{ file_stats.avg_cpu }}</p>
+            <p><strong>Minimum Memory:</strong> {{ file_stats.min_memory }}</p>
+            <p><strong>Maximum Memory:</strong> {{ file_stats.max_memory }}</p>
+            <p><strong>Average Memory:</strong> {{ file_stats.avg_memory }}</p>
+        </div>
+
+        {% if file_stats.metrics is defined %}
+        <script>
+            var metrics = {{ file_stats.metrics | tojson }};
+
+            var timestamps = [];
+            var cpuValues = [];
+            var memoryValues = [];
+
+            metrics.forEach(function(metric) {
+                timestamps.push(metric.timestamp);
+                cpuValues.push(metric.cpu);
+                memoryValues.push(metric.memory);
+            });
+
+            var cpuTrace = {
+                x: timestamps,
+                y: cpuValues,
+                name: 'CPU Usage',
+                type: 'scatter'
+            };
+
+            var memoryTrace = {
+                x: timestamps,
+                y: memoryValues,
+                name: 'Memory Usage',
+                type: 'scatter'
+            };
+
+            var layout = {
+                title: 'Pod Metrics',
+                xaxis: {
+                    title: 'Timestamp'
+                },
+                yaxis: {
+                    title: 'Value'
+                },
+            };
+
+            var data = [cpuTrace, memoryTrace];
+
+            Plotly.newPlot('chart-{{ loop.index }}', data, layout);
+        </script>
+        {% endif %}
+    </div>
+    {% endfor %}
+</body>
+</html>
