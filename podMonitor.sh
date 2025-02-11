@@ -29,7 +29,7 @@ while true; do
         OUTPUT_FILE="${POD_NAME}_metrics.json"
         
         # Write JSON to the output file
-        echo "$JSON" > "$OUTPUT_FILE"
+        echo "$JSON" >> "$OUTPUT_FILE"
     done
     
     # Sleep for 5 seconds
