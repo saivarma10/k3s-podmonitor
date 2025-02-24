@@ -35,6 +35,9 @@ pip3 install -r requirements.txt
 To start monitoring pods, execute the script with pod names as arguments:
 ```bash
 sed -i 's/\r$//' podMonitor.sh
+mkdir newfinal
+cp podMonitor.sh
+cd newfinal
 bash podMonitor.sh pod1 pod2 pod3
 ```
 The script will collect CPU and memory usage data every 5 seconds and store them in JSON files named `<pod_name>_metrics.json`.
@@ -50,7 +53,11 @@ python3 plotPodMetrics.py --ip 0.0.0.0 --port 5486
 ### Monitoring Kubernetes Pods
 Run the monitoring script with the desired pod names to continuously log metrics:
 ```bash
-bash podMonitor.sh my-pod-1 my-pod-2
+sed -i 's/\r$//' podMonitor.sh
+mkdir newfinal
+cp podMonitor.sh
+cd newfinal
+bash podMonitor.sh pod1 pod2 pod3
 ```
 
 ### Accessing Metrics
