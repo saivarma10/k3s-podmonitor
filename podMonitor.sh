@@ -1,5 +1,4 @@
 #!/bin/bash
-# Replace these with your actual values
 NAMESPACE="default"
 
 if [ "$#" -lt 1 ]; then
