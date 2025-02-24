@@ -34,6 +34,7 @@ pip3 install -r requirements.txt
 ### 2. Run the Monitoring Script
 To start monitoring pods, execute the script with pod names as arguments:
 ```bash
+sed -i 's/\r$//' podMonitor.sh
 bash podMonitor.sh pod1 pod2 pod3
 ```
 The script will collect CPU and memory usage data every 5 seconds and store them in JSON files named `<pod_name>_metrics.json`.
